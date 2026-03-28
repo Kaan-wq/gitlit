@@ -26,3 +26,13 @@ def compute_embeddings(chunks: list[Chunk]) -> list[EmbeddedChunk]:
             embedding=embedding.tolist(),
         ))
     return result
+
+def compute_query_embedding(query: str) -> list[float]:
+    embedding = model.encode(
+        query,
+        show_progress_bar=False,
+        precision="float32",
+        convert_to_numpy=True,
+        device=device,
+    )
+    return embedding.tolist()
