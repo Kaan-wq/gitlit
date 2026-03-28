@@ -3,10 +3,10 @@ from app.models.schemas import EmbeddedChunk
 import os
 
 class VectorStore:
-    def __init__(self):
-        uri = os.environ.get("MILVUS_URI", "milvus_vector_store.db")
+    def __init__(self, uri: str = None, collection_name: str = None):
+        uri = uri or os.environ.get("MILVUS_URI", "milvus_vector_store.db")
         self.client = MilvusClient(uri)
-        self.collection_name = os.environ.get("MILVUS_COLLECTION", "gitlit")
+        self.collection_name = collection_name or os.environ.get("MILVUS_COLLECTION", "gitlit")
         self._create_collection()
 
     def _create_collection(self):
