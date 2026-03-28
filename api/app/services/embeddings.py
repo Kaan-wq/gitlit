@@ -1,8 +1,8 @@
-import torch
 from sentence_transformers import SentenceTransformer
 from app.models.schemas import Chunk, EmbeddedChunk
+import torch
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 model_id = "jinaai/jina-embeddings-v5-text-nano"
 model = SentenceTransformer(
     model_id,
