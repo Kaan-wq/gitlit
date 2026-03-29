@@ -1,7 +1,27 @@
 from app.models.schemas import ScrapedFile, Chunk, EmbeddedChunk
 from app.services.vector_store import VectorStore
+from fastapi.testclient import TestClient
+from app.main import app
+from app.services.embeddings import load_model
+from unittest.mock import MagicMock
+import numpy as np
 import pytest
 import os
+
+
+@pytest.fixture
+def sample_client():
+    yield TestClient(app)
+
+@pytest.fixture
+def mock_model():
+    model = MagicMock()
+    model.encode.return_value = np.array([[0.1] * 768])
+    return model
+
+@pytest.fixture(scope="session")
+def real_model():
+    return load_model()
 
 @pytest.fixture
 def sample_scraped_file():
