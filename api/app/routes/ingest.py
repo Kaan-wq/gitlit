@@ -1,9 +1,11 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sentence_transformers import SentenceTransformer
 from app.models.schemas import RepoIngestRequest
 from app.services.scraper import scrape_repository
 from app.services.chunker import chunk_files
 from app.services.embeddings import compute_embeddings
 from app.services.vector_store import vector_store
+from app.dependencies import get_model
 import logging
 
 logger = logging.getLogger(__name__)
@@ -11,7 +13,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/ingest", tags=["ingest"])
 
 @router.post("/repo")
-def ingest_repo(request: RepoIngestRequest):
+def ingest_repo(request: RepoIngestRequest, model : SentenceTransformer = Depends(get_model)):
     try : 
         logger.info(f"Starting ingestion for {request.repo_url}")
 
@@ -21,7 +23,7 @@ def ingest_repo(request: RepoIngestRequest):
         chunks = chunk_files(scraped_files)
         logger.info(f"Created {len(chunks)} chunks")
 
-        embedded_chunks = compute_embeddings(chunks)
+        embedded_chunks = compute_embeddings(chunks, model)
         logger.info(f"Embedded {len(embedded_chunks)} chunks")
 
         insertion_result = vector_store.insert(embedded_chunks)
