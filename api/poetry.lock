@@ -1416,13 +1416,28 @@ files = [
 ]
 
 [[package]]
+name = "milvus"
+version = "2.3.5"
+description = "Embeded Milvus"
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "milvus-2.3.5-py3-none-macosx_12_0_arm64.whl", hash = "sha256:328d2ba24fb04a595f47ab226abf5565691bfe242beb88e61b31326d0416bf1a"},
+    {file = "milvus-2.3.5-py3-none-macosx_12_0_x86_64.whl", hash = "sha256:e35a8d6397da1f0f685d0f55afad8654296ff3b3aea296439e53ce9980d1ad22"},
+    {file = "milvus-2.3.5-py3-none-manylinux2014_x86_64.whl", hash = "sha256:69515a0630ce29fd10e101fa442afea8ca1387b93a456cd9bd41fdf3deb93d04"},
+]
+
+[package.extras]
+client = ["pymilvus (>=2.3.0b1,<2.4.0)"]
+
+[[package]]
 name = "milvus-lite"
 version = "2.5.1"
 description = "A lightweight version of Milvus wrapped with Python."
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "sys_platform != \"win32\""
 files = [
     {file = "milvus_lite-2.5.1-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:6b014453200ba977be37ba660cb2d021030375fa6a35bc53c2e1d92980a0c512"},
     {file = "milvus_lite-2.5.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:a2e031088bf308afe5f8567850412d618cfb05a65238ed1a6117f60decccc95a"},
@@ -4720,4 +4735,4 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0.0"
-content-hash = "40ca973d5f0ac77fd64dbcef8c9f030b913168f85f212f9af9a66c781ad45c45"
+content-hash = "2e8d76fcbd0d63677f01bf806486f0206264db3cc5badb2b2b5a2a2ebc2b3ff5"
