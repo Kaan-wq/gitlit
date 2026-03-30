@@ -13,7 +13,7 @@ def load_model() -> SentenceTransformer:
         trust_remote_code=True,
         device=device,
         model_kwargs={
-            "torch_dtype": torch.float32, 
+            "dtype": torch.float32, 
             "default_task": "retrieval",
         },
     )
