@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.services.embeddings import load_model
+from app.services.llm import load_llm
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import router
 import os
@@ -9,8 +10,11 @@ import os
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.model = load_model()
+    app.state.llm, app.state.tokenizer = load_llm()
     yield
     del app.state.model
+    del app.state.llm
+    del app.state.tokenizer
 
 app = FastAPI(
     title="GitLit",
