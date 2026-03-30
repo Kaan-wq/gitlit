@@ -3,7 +3,7 @@ import torch
 import textwrap
 
 
-model_id = "Qwen/Qwen2.5-7B-Instruct"
+model_id = "Qwen/Qwen2.5-7B-Instruct-AWQ"
 
 SYSTEM_PROMPT = textwrap.dedent("""
     You are GitLit, an AI assistant that helps developers understand code repositories.
