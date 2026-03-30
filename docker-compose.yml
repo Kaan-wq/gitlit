@@ -51,7 +51,33 @@ services:
     depends_on:
       - "etcd"
       - "minio"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      timeout: 20s
+      retries: 5
+      start_period: 60s
+
+  api:
+    container_name: gitlit-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - MILVUS_URI=http://standalone:19530
+      - HF_TOKEN=${HF_TOKEN}
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      standalone:
+        condition: service_healthy
+    volumes:
+      - hf_cache:/root/.cache/huggingface
 
 networks:
   default:
     name: milvus
+
+volumes:
+  hf_cache:
